@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Lumière Events & Co. offers catering, event hosting, clown entertainment, and photoshoot services.">
+    <title>Lumière Events & Co. | Make Every Moment Shine</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:where(.dark, .dark *));
+
+        @theme {
+            --color-primary: #5C7057;
+            --color-secondary: #89A482;
+            --color-tertiary: #ACC5A6;
+            --color-accent: #D1EDD3;
+            --color-background: #F7FAF5;
+            --color-foreground: #202820;
+        }
+
+        @layer components {
+            .section-container {
+                @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+            }
+
+            .section-heading {
+                @apply text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl;
+            }
+
+            .eyebrow {
+                @apply mb-3 text-xs font-bold uppercase tracking-[0.22em] text-primary dark:text-accent;
+            }
+
+            .surface-card {
+                @apply rounded-3xl border border-stone-200 bg-white shadow-sm dark:border-stone-700 dark:bg-stone-900;
+            }
+
+            .btn-primary {
+                @apply inline-flex min-h-12 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-bold text-white dark:bg-accent dark:text-foreground;
+            }
+
+            .btn-outline {
+                @apply inline-flex min-h-12 items-center justify-center rounded-full border border-primary px-6 py-3 text-sm font-bold text-primary dark:border-accent dark:text-stone-100;
+            }
+
+            .form-field {
+                @apply mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base text-foreground outline-none dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100;
+            }
+
+            .form-field:focus {
+                border-color: var(--color-primary);
+                outline: 2px solid var(--color-secondary);
+                outline-offset: 2px;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-foreground);
+        }
+
+        .dark body {
+            background-color: #171C17;
+            color: #F0F5EE;
+        }
+
+        .dark .form-field::placeholder {
+            color: #C7D2C3;
+        }
+
+        .dark .form-field:focus {
+            border-color: var(--color-accent);
+            outline-color: var(--color-accent);
+        }
+
+        #progressBar {
+            transform: scaleX(0);
+            transform-origin: left center;
+        }
+
+        .reveal {
+            visibility: visible;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--color-secondary);
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+
+    <script>
+        try {
+            if (localStorage.getItem("lumiere-theme") === "dark") {
+                document.documentElement.classList.add("dark");
+            }
+        } catch (error) {
+        }
+    </script>
+</head>
+
+<body class="min-h-screen bg-background text-foreground antialiased dark:bg-stone-950 dark:text-stone-100">
+
+    <div id="progressBar"
+        class="fixed left-0 top-0 z-[60] h-1 w-full origin-left bg-primary dark:bg-accent"
+        role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    </div>
+
+    <header
+        class="sticky top-0 z-50 border-b border-stone-200 bg-background/95 backdrop-blur-md dark:border-stone-800 dark:bg-stone-950/95">
+        <nav class="section-container flex min-h-20 items-center justify-between gap-4" aria-label="Main navigation">
+
+            <a href="#hero" class="flex items-center gap-3 rounded-lg dark:text-stone-100"
+                aria-label="Lumière Events and Co. home">
+                <span
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-lg font-bold text-white dark:bg-accent dark:text-stone-900"
+                    aria-hidden="true">L</span>
+                <span>
+                    <span class="block text-sm font-extrabold tracking-wide">LUMIÈRE</span>
+                    <span
+                        class="block text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-600 dark:text-stone-300">Events
+                        & Co.</span>
+                </span>
+            </a>
+
+            <ul id="desktopNav" class="hidden items-center gap-6 md:flex">
+                <li>
+                    <a class="rounded-md text-sm font-semibold text-stone-700 hover:text-primary dark:text-stone-200 dark:hover:text-accent"
+                        href="#about">About</a>
+                </li>
+                <li>
+                    <a class="rounded-md text-sm font-semibold text-stone-700 hover:text-primary dark:text-stone-200 dark:hover:text-accent"
+                        href="#work">Services</a>
+                </li>
+                <li>
+                    <a class="rounded-md text-sm font-semibold text-stone-700 hover:text-primary dark:text-stone-200 dark:hover:text-accent"
+                        href="#contact">Contact</a>
+                </li>
+            </ul>
+
+            <div class="flex items-center gap-2">
+                <button id="darkModeToggle" type="button"
+                    class="rounded-full border border-stone-300 px-3 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:bg-stone-800"
+                    aria-pressed="false">
+                    <span id="themeIcon" aria-hidden="true"></span>
+                    <span id="themeLabel" class="hidden sm:inline">Dark mode</span>
+                </button>
+
+                <button id="mobileMenuToggle" type="button"
+                    class="rounded-full border border-stone-300 px-3 py-2 text-sm font-semibold text-stone-800 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 md:hidden"
+                    aria-expanded="false" aria-controls="mobileNav" aria-label="Open navigation menu">
+                    ☰
+                </button>
+            </div>
+        </nav>
+
+        <nav id="mobileNav"
+            class="hidden border-t border-stone-200 bg-background px-5 py-4 dark:border-stone-800 dark:bg-stone-950 md:hidden"
+            aria-label="Mobile navigation">
+            <ul class="section-container flex flex-col gap-4">
+                <li>
+                    <a class="block rounded-md py-1 text-sm font-semibold text-stone-800 dark:text-stone-100"
+                        href="#about">About</a>
+                </li>
+                <li>
+                    <a class="block rounded-md py-1 text-sm font-semibold text-stone-800 dark:text-stone-100"
+                        href="#work">Services</a>
+                </li>
+                <li>
+                    <a class="block rounded-md py-1 text-sm font-semibold text-stone-800 dark:text-stone-100"
+                        href="#contact">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="hero" class="overflow-hidden bg-background py-14 dark:bg-stone-950 sm:py-20 lg:py-28">
+            <div class="section-container grid items-center gap-12 md:grid-cols-2 lg:gap-16">
+
+                <div>
+                    <p id="heroEyebrow" class="eyebrow">Celebrations, thoughtfully made</p>
+
+                    <h1 id="heroTitle"
+                        class="max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground dark:text-stone-50 sm:text-5xl lg:text-6xl">
+                        Make every moment
+                        <span class="text-primary dark:text-accent">shine.</span>
+                    </h1>
+
+                    <p id="heroDescription"
+                        class="mt-6 max-w-xl text-base leading-8 text-stone-700 dark:text-stone-300 sm:text-lg">
+                        From intimate gatherings to grand celebrations, we bring every detail together to create
+                        experiences worth remembering.
+                    </p>
+
+                    <div id="heroActions" class="mt-8 flex flex-wrap gap-3">
+                        <a href="#work" class="btn-primary">Explore our services</a>
+                        <a href="#contact" class="btn-outline">Plan your event</a>
+                    </div>
+
+                    <div class="mt-5 flex flex-wrap items-center gap-3">
+                        <button id="replayBtn" type="button"
+                            class="rounded-full border border-stone-300 px-4 py-2 text-sm font-semibold text-stone-800 hover:bg-stone-100 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:bg-stone-800">
+                            Refresh
+                        </button>
+
+                        <p id="heroNote" class="text-sm text-stone-600 dark:text-stone-400"></p>
+                    </div>
+                </div>
+
+                <div id="heroVisual" class="relative">
+                    <div class="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-accent/80 dark:bg-secondary/20"
+                        aria-hidden="true"></div>
+                    <div class="absolute -bottom-5 -left-5 h-28 w-28 rounded-full border border-tertiary dark:border-stone-700"
+                        aria-hidden="true"></div>
+
+                    <img id="heroImage"
+                        class="relative z-10 h-[340px] w-full rounded-[2rem] object-cover shadow-xl sm:h-[440px]"
+                        src="https://i.pinimg.com/1200x/4f/ec/b1/4fecb11f43f52bbf084007e3c65e4cb8.jpg"
+                        alt="Elegant venue prepared for a celebration" fetchpriority="high">
+
+                    <div
+                        class="absolute bottom-5 left-5 z-20 max-w-xs rounded-2xl border border-white/30 bg-white/95 p-4 text-stone-900 shadow-lg dark:border-stone-600 dark:bg-stone-900 dark:text-stone-100">
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-accent">
+                            We Create Moments</p>
+                        <p class="mt-1 text-sm font-medium">You Make Memories.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="reveal bg-white py-16 dark:bg-stone-900 sm:py-24">
+            <div class="section-container grid items-center gap-10 md:grid-cols-2 lg:gap-16">
+                <div>
+                    <p class="eyebrow">A little about us</p>
+                    <h2 class="section-heading text-foreground dark:text-stone-50">Where Every Detail Matters</h2>
+
+                    <p class="mt-6 leading-8 text-stone-700 dark:text-stone-300">
+                        Lumière Events & Co. is a fictional event services business built around one simple idea:
+                        celebrations feel more meaningful when every detail is handled with care.
+                    </p>
+
+                    <p class="mt-4 leading-8 text-stone-700 dark:text-stone-300">
+                        From family gatherings and birthdays to school programs and photoshoots, our services are
+                        designed to make each occasion welcoming, fun, and memorable.
+                    </p>
+                </div>
+
+                <div class="surface-card p-6 sm:p-8">
+                    <p class="text-sm font-bold uppercase tracking-[0.18em] text-primary dark:text-accent">
+                        AS WE ASSURE</p>
+                    <h3 class="mt-4 text-2xl font-bold text-stone-900 dark:text-stone-50">Beautifully Planned. Joyfully
+                        Remembered.</h3>
+
+                    <ul class="mt-6 space-y-4 text-stone-700 dark:text-stone-300">
+                        <li class="flex gap-3">
+                            <span class="font-bold text-primary dark:text-accent" aria-hidden="true">✓</span>
+                            <span>Friendly service for different occasions</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="font-bold text-primary dark:text-accent" aria-hidden="true">✓</span>
+                            <span>Flexible options for your celebration</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="font-bold text-primary dark:text-accent" aria-hidden="true">✓</span>
+                            <span>Memories worth looking back on</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="reveal bg-background py-16 dark:bg-stone-950 sm:py-24">
+            <div class="section-container">
+                <div class="mx-auto max-w-2xl text-center">
+                    <p class="eyebrow">What we can offer for you</p>
+                    <h2 class="section-heading text-foreground dark:text-stone-50">Everything for a memorable day.</h2>
+                    <p class="mt-5 leading-7 text-stone-700 dark:text-stone-300">
+                        Choose a service or bring them together for a celebration that feels like you.
+                    </p>
+                </div>
+
+                <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+                    <article class="surface-card overflow-hidden">
+                        <img class="h-48 w-full object-cover"
+                            src="https://i.pinimg.com/736x/99/91/c2/9991c20d1b47768922bcf8bd0e3c3acf.jpg"
+                            alt="Food arranged for catering" loading="lazy">
+                        <div class="p-6">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-accent">
+                                Catering</p>
+                            <h3 class="mt-3 text-xl font-bold text-stone-900 dark:text-stone-50">Flavors That Bring Us
+                                Together</h3>
+                            <p class="mt-3 text-sm leading-6 text-stone-700 dark:text-stone-300">Delight your guests
+                                with delicious food and thoughtful presentation for gatherings of every kind.</p>
+                        </div>
+                    </article>
+
+                    <article class="surface-card overflow-hidden">
+                        <img class="h-48 w-full object-cover"
+                            src="https://i.pinimg.com/736x/3a/78/ee/3a78eef08d794ec23f1ff2bc79728307.jpg"
+                            alt="Venue prepared for an event" loading="lazy">
+                        <div class="p-6">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-accent">
+                                Hosting</p>
+                            <h3 class="mt-3 text-xl font-bold text-stone-900 dark:text-stone-50">Every Event, Seamlessly
+                                Hosted</h3>
+                            <p class="mt-3 text-sm leading-6 text-stone-700 dark:text-stone-300">Keep your program
+                                engaging and organized with a host who helps every moment flow smoothly.</p>
+                        </div>
+                    </article>
+
+                    <article class="surface-card overflow-hidden">
+                        <img class="h-48 w-full object-cover"
+                            src="https://i.pinimg.com/1200x/cc/87/50/cc8750372baf77718ac4c874ca14adc4.jpg"
+                            alt="Colorful party decorations and balloons" loading="lazy">
+                        <div class="p-6">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-accent">
+                                Entertainment</p>
+                            <h3 class="mt-3 text-xl font-bold text-stone-900 dark:text-stone-50">Smiles, Laughter, and a
+                                Little Magic</h3>
+                            <p class="mt-3 text-sm leading-6 text-stone-700 dark:text-stone-300">Add laughter, playful
+                                activities, and joyful surprises to birthdays and family celebrations.</p>
+                        </div>
+                    </article>
+
+                    <article class="surface-card overflow-hidden">
+                        <img class="h-48 w-full object-cover"
+                            src="https://i.pinimg.com/736x/eb/ef/4b/ebef4bf25540452860e0e8848168a19b.jpg"
+                            alt="Camera ready for a photoshoot" loading="lazy">
+                        <div class="p-6">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary dark:text-accent">
+                                Photoshoots</p>
+                            <h3 class="mt-3 text-xl font-bold text-stone-900 dark:text-stone-50">Moments Made Timeless
+                            </h3>
+                            <p class="mt-3 text-sm leading-6 text-stone-700 dark:text-stone-300">Capture the smiles,
+                                details, and genuine emotions that make your celebration uniquely yours.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal bg-primary py-16 text-white dark:bg-stone-900 sm:py-20">
+            <div class="section-container flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+                <div class="max-w-2xl">
+                    <p class="text-xs font-bold uppercase tracking-[0.22em] text-accent">EVERY MOMENT MATTERS</p>
+                    <h2 class="mt-4 text-3xl font-bold leading-tight sm:text-4xl">Every Great Celebration Starts Here.
+                    </h2>
+                    <p class="mt-4 max-w-xl leading-7 text-white">From the first idea to the final details, we're here
+                        to help bring your celebration to life with thoughtful planning and services made for your
+                        special moments.</p>
+                </div>
+
+                <a href="#contact"
+                    class="inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-bold text-foreground">
+                    Get in touch
+                </a>
+            </div>
+        </section>
+
+        <section id="contact" class="reveal bg-white py-16 dark:bg-stone-950 sm:py-24">
+            <div class="section-container grid gap-12 md:grid-cols-2 lg:gap-20">
+                <div>
+                    <p class="eyebrow">WE'D LOVE TO HEAR FROM YOU</p>
+                    <h2 class="section-heading text-foreground dark:text-stone-50">Every Great Event Begins with a
+                        Conversation.</h2>
+
+                    <p class="mt-6 max-w-lg leading-8 text-stone-700 dark:text-stone-300">
+                        Whether you're planning a birthday, gathering, or special event, we're here to help you bring
+                        your vision to life.
+                    </p>
+
+                    <div class="mt-8 rounded-2xl bg-accent/50 p-5 dark:bg-stone-900">
+                        <p class="font-bold text-stone-900 dark:text-stone-50">Lumière Events & Co.</p>
+                        <p class="mt-2 text-sm leading-6 text-stone-700 dark:text-stone-300">Catering · Event Hosting ·
+                            Entertainment · Photoshoots</p>
+                    </div>
+                </div>
+
+                <form id="contactForm" class="surface-card p-6 sm:p-8">
+                    <div class="mb-5">
+                        <label for="name" class="block text-sm font-bold text-stone-900 dark:text-stone-100">Full
+                            name</label>
+                        <input class="form-field" type="text" id="name" name="name" autocomplete="name"
+                            placeholder="Your name" required>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="email" class="block text-sm font-bold text-stone-900 dark:text-stone-100">Email
+                            address</label>
+                        <input class="form-field" type="email" id="email" name="email" autocomplete="email"
+                            placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-bold text-stone-900 dark:text-stone-100">Tell us
+                            about your event</label>
+                        <textarea class="form-field min-h-36 resize-y" id="message" name="message" rows="5"
+                            placeholder="Event type, date, and services you're interested in..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full">
+                        Send message
+                    </button>
+
+                    <p id="formFeedback"
+                        class="mt-4 hidden rounded-xl bg-accent/50 p-3 text-sm text-foreground dark:bg-stone-800 dark:text-stone-100"
+                        role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-stone-200 bg-background py-8 dark:border-stone-800 dark:bg-stone-950">
+        <div
+            class="section-container flex flex-col gap-3 text-sm text-stone-700 dark:text-stone-300 sm:flex-row sm:items-center sm:justify-between">
+            <p>© <span id="currentYear">2026</span> Lumière Events & Co. All rights reserved.</p>
+            <a href="#hero" class="font-semibold text-primary hover:underline dark:text-accent">Back to top
+                ↑</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
