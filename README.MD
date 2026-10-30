@@ -1,6 +1,6 @@
 # Lumière Events & Co.
 
-**Live site:** https://YOUR-USERNAME.github.io/YOUR-REPO/
+
 
 ## About
 
